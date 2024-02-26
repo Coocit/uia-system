@@ -3,12 +3,14 @@ package com.coocit.admin.model.convert;
 import com.coocit.admin.model.dto.OrganizationForm;
 import com.coocit.admin.model.entity.Organization;
 import com.coocit.admin.model.vo.OrganizationVo;
+import java.time.ZoneOffset;
+import java.util.Date;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-02-26T10:20:21+0800",
+    date = "2024-02-26T11:14:56+0800",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)"
 )
 @Component
@@ -28,8 +30,12 @@ public class OrganizationConvertImpl implements OrganizationConvert {
         organizationVo.setParentId( org.getParentId() );
         organizationVo.setSort( org.getSort() );
         organizationVo.setStatus( org.getStatus() );
-        organizationVo.setCreateTime( org.getCreateTime() );
-        organizationVo.setUpdateTime( org.getUpdateTime() );
+        if ( org.getCreateTime() != null ) {
+            organizationVo.setCreateTime( Date.from( org.getCreateTime().toInstant( ZoneOffset.UTC ) ) );
+        }
+        if ( org.getUpdateTime() != null ) {
+            organizationVo.setUpdateTime( Date.from( org.getUpdateTime().toInstant( ZoneOffset.UTC ) ) );
+        }
 
         return organizationVo;
     }
