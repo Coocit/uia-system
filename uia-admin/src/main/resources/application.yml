@@ -1,0 +1,24 @@
+server:
+  port: 10010
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: uia-admin
+  datasource:
+    url: jdbc:mysql://localhost:3308/uia_system?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+  jpa:
+    open-in-view: false # Open Session in View保特视图层的会话，默认开启，需要将其设为false
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update # 是否自动创建或者修改 DB 生产环境关闭
+    show-sql: true
