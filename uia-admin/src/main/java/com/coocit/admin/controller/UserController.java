@@ -1,6 +1,7 @@
 package com.coocit.admin.controller;
 
 import com.coocit.admin.model.dto.UserDTO;
+import com.coocit.admin.model.dto.UserForm;
 import com.coocit.admin.model.vo.UserInfoVo;
 import com.coocit.admin.model.vo.UserVo;
 import com.coocit.admin.service.UserService;
@@ -31,6 +32,11 @@ public class UserController {
     public Result<PageResult<UserVo>> page(@RequestBody UserDTO userDTO) {
         userDTO.fillPage();
         return Result.success(userService.findUserPage(userDTO));
+    }
+
+    @PostMapping("/add")
+    public Result<Long> add(@RequestBody UserForm userForm) {
+        return Result.success(userService.add(userForm));
     }
 
 }

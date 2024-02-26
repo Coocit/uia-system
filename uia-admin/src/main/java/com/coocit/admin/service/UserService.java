@@ -1,6 +1,7 @@
 package com.coocit.admin.service;
 
 import com.coocit.admin.model.dto.UserDTO;
+import com.coocit.admin.model.dto.UserForm;
 import com.coocit.admin.model.vo.UserInfoVo;
 import com.coocit.admin.model.vo.UserVo;
 import com.coocit.common.response.PageResult;
@@ -16,4 +17,5 @@ public interface UserService {
 
     PageResult<UserVo> findUserPage(UserDTO userDTO);
 
+    Long add(UserForm userForm);
 }

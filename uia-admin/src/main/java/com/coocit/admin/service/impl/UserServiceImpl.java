@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.coocit.admin.model.convert.UserConvert;
 import com.coocit.admin.model.dto.UserDTO;
+import com.coocit.admin.model.dto.UserForm;
 import com.coocit.admin.model.entity.Organization;
 import com.coocit.admin.model.entity.User;
 import com.coocit.admin.model.entity.UserOrg;
@@ -21,6 +22,7 @@ import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -97,6 +99,21 @@ public class UserServiceImpl extends ServiceImpl<UserRepository, User> implement
             userVoList.add(userVO);
         }
         return PageResult.of(userVoList, (int) page.getTotal(),userDTO.getPageNum(),userDTO.getPageSize());
+    }
+
+    @Transactional
+    @Override
+    public Long add(UserForm userForm) {
+        User user = userConvert.toEntity(userForm);
+        // TODO 默认头像以及默认密码加密
+        user.setAvatar("https://img0.baidu.com/it/u=2416850868,2392496129&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1693501200&t=722ff48c198154281bb273e2cdf919d9");
+        user.setPassword("123456");
+        this.save(user);
+        for (Long orgId : userForm.getOrgIds()) {
+            UserOrg userOrg = UserOrg.builder().userId(user.getId()).orgId(orgId).build();
+            this.userOrgRepository.insert(userOrg);
+        }
+        return user.getId();
     }
 
 }
