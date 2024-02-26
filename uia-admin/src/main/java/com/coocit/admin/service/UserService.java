@@ -1,6 +1,9 @@
 package com.coocit.admin.service;
 
+import com.coocit.admin.model.dto.UserDTO;
 import com.coocit.admin.model.vo.UserInfoVo;
+import com.coocit.admin.model.vo.UserVo;
+import com.coocit.common.response.PageResult;
 
 /**
  * @author: Coocit
@@ -8,5 +11,9 @@ import com.coocit.admin.model.vo.UserInfoVo;
  * @description:
  */
 public interface UserService {
+
     UserInfoVo getUserInfo();
+
+    PageResult<UserVo> findUserPage(UserDTO userDTO);
+
 }

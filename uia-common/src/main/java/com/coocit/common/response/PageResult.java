@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,4 +37,9 @@ public class PageResult<T> {
     public static <T> PageResult<T> of(Page<T> all, int page, int pageSize) {
         return new PageResult<>(all.getSize(), page, pageSize, all.getTotalPages(), all.getContent());
     }
+
+    public static <T> PageResult<T> empty() {
+        return of(Collections.emptyList(),0,1,10);
+    }
+
 }

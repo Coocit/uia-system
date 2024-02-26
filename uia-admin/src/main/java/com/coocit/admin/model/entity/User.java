@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 @TableName("tb_user")
 public class User {
+
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
@@ -33,9 +34,11 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @TableField(exist = false)
     private List<Organization> organizationList;
+
 }

@@ -1,12 +1,13 @@
 package com.coocit.admin.controller;
 
+import com.coocit.admin.model.dto.UserDTO;
 import com.coocit.admin.model.vo.UserInfoVo;
+import com.coocit.admin.model.vo.UserVo;
 import com.coocit.admin.service.UserService;
+import com.coocit.common.response.PageResult;
 import com.coocit.common.response.Result;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Coocit
@@ -25,4 +26,11 @@ public class UserController {
         UserInfoVo userInfoVo = userService.getUserInfo();
         return Result.success(userInfoVo);
     }
+
+    @PostMapping("/page")
+    public Result<PageResult<UserVo>> page(@RequestBody UserDTO userDTO) {
+        userDTO.fillPage();
+        return Result.success(userService.findUserPage(userDTO));
+    }
+
 }
