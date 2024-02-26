@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.coocit.admin.model.convert.OrganizationConvert;
 import com.coocit.admin.model.dto.OrganizationDTO;
+import com.coocit.admin.model.dto.OrganizationForm;
 import com.coocit.admin.model.entity.Organization;
 import com.coocit.admin.model.vo.OrganizationVo;
 import com.coocit.admin.repository.OrganizationRepository;
@@ -89,6 +90,13 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationRepository,
                     option.setChildren(toTreeOptionList(organization.getId(), all));
                     return option;
                 }).toList();
+    }
+
+    @Override
+    public Long add(OrganizationForm organizationForm) {
+        Organization organization = organizationConvert.toEntity(organizationForm);
+        this.save(organization);
+        return organization.getId();
     }
 
 

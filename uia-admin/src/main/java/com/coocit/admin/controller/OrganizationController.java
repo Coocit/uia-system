@@ -1,6 +1,7 @@
 package com.coocit.admin.controller;
 
 import com.coocit.admin.model.dto.OrganizationDTO;
+import com.coocit.admin.model.dto.OrganizationForm;
 import com.coocit.admin.model.vo.OrganizationVo;
 import com.coocit.admin.service.OrganizationService;
 import com.coocit.common.model.Option;
@@ -33,6 +34,11 @@ public class OrganizationController {
     @PostMapping("/options")
     public Result<List<Option<String>>> options(){
         return Result.success(organizationService.listOptions());
+    }
+
+    @PostMapping("/add")
+    public Result<Long> add(@RequestBody OrganizationForm organizationForm){
+        return Result.success(organizationService.add(organizationForm));
     }
 
 
