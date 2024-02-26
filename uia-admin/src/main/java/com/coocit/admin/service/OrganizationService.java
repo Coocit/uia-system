@@ -19,4 +19,8 @@ public interface OrganizationService {
     List<Option<String>> listOptions();
 
     Long add(OrganizationForm organizationForm);
+
+    OrganizationForm  findOrgDetailById(Long id);
+
+    Long modifyOrg(Long id, OrganizationForm organizationForm);
 }

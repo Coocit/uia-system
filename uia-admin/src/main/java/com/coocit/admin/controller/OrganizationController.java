@@ -7,10 +7,7 @@ import com.coocit.admin.service.OrganizationService;
 import com.coocit.common.model.Option;
 import com.coocit.common.response.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +37,17 @@ public class OrganizationController {
     public Result<Long> add(@RequestBody OrganizationForm organizationForm){
         return Result.success(organizationService.add(organizationForm));
     }
+
+    @PostMapping("{id}")
+    public Result<OrganizationForm> detail(@PathVariable Long id){
+        return Result.success(organizationService.findOrgDetailById(id));
+    }
+
+    @PostMapping("{id}/update")
+    public Result<Long> update(@PathVariable Long id, @RequestBody OrganizationForm form){
+        return Result.success(organizationService.modifyOrg(id,form));
+    }
+
 
 
 }

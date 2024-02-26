@@ -99,5 +99,19 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationRepository,
         return organization.getId();
     }
 
+    @Override
+    public OrganizationForm findOrgDetailById(Long id) {
+        Organization organization = this.getById(id);
+        return organizationConvert.toForm(organization);
+    }
+
+    @Override
+    public Long modifyOrg(Long id, OrganizationForm organizationForm) {
+        organizationForm.setId(id);
+        Organization organization = organizationConvert.toEntity(organizationForm);
+        this.updateById(organization);
+        return id;
+    }
+
 
 }
