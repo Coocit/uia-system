@@ -18,4 +18,8 @@ public interface UserService {
     PageResult<UserVo> findUserPage(UserDTO userDTO);
 
     Long add(UserForm userForm);
+
+    UserForm findUserById(Long id);
+
+    Long modifyUserById(Long id, UserForm userForm);
 }

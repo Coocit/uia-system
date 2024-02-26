@@ -116,4 +116,33 @@ public class UserServiceImpl extends ServiceImpl<UserRepository, User> implement
         return user.getId();
     }
 
+    @Override
+    public UserForm findUserById(Long id) {
+        User user = this.getById(id);
+        LambdaQueryWrapper<UserOrg> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(UserOrg::getUserId,user.getId());
+        List<UserOrg> userOrgs = this.userOrgRepository.selectList(queryWrapper);
+        List<Long> orgIds = userOrgs.stream().map(UserOrg::getOrgId).toList();
+        UserForm userForm = userConvert.toForm(user);
+        userForm.setOrgIds(orgIds);
+        return userForm;
+    }
+
+    @Transactional
+    @Override
+    public Long modifyUserById(Long id, UserForm userForm) {
+        User user = userConvert.toEntity(userForm);
+        user.setId(id);
+        this.updateById(user);
+        LambdaQueryWrapper<UserOrg> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(UserOrg::getUserId,id);
+        this.userOrgRepository.delete(queryWrapper);
+        for (Long orgId : userForm.getOrgIds()) {
+            UserOrg userOrg = UserOrg.builder().userId(user.getId()).orgId(orgId).build();
+            this.userOrgRepository.insert(userOrg);
+        }
+        return id;
+    }
+
+
 }
