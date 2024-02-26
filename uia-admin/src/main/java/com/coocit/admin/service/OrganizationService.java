@@ -2,6 +2,7 @@ package com.coocit.admin.service;
 
 import com.coocit.admin.model.dto.OrganizationDTO;
 import com.coocit.admin.model.vo.OrganizationVo;
+import com.coocit.common.model.Option;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface OrganizationService {
 
     List<OrganizationVo> listOrganization(OrganizationDTO org);
 
+    List<Option<String>> listOptions();
 }
